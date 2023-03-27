@@ -10,10 +10,9 @@
 
 int _printf(const char *format, ...)
 {
-	char *str;
+	const char *str;
 	int length = 0;
-	unsigned int i;
-	char *s;
+	const char *s;
 	va_list ap;
 
 	va_start(ap, format);
@@ -30,16 +29,12 @@ int _printf(const char *format, ...)
 			switch (*str)
 			{
 				case 'c':
-					i = va_arg(ap, int);
-					putchar(s);
+					putchar(va_arg(ap, int));
 					break;
 				case 's':
-					s = va_arg(ap, char *);
-					while (*s != '\0')
-					{
+					s = va_arg(ap, const char *);
+					for (; *s != '\0'; s++)
 						putchar(*s);
-						*s++;
-					}
 					break;
 				default:
 					putchar(*str);
